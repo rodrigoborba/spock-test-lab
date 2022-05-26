@@ -15,4 +15,11 @@ public class CustomerReader {
         return customer.getFirstName() +" "+customer.getLastName();
     }
 
+    public void setEntityManager(EntityManager entityManager) {
+        this.entityManager = entityManager;
+    }
+
+    public EntityManager getEntityManager() {
+        return entityManager;
+    }
 }

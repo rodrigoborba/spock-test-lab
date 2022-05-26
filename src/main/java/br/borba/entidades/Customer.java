@@ -20,6 +20,10 @@ public class Customer {
         this.fullName = firstName + " " + lastName;
     }
 
+    public Customer() {
+        super();
+    }
+
     public String getFullName() {
         if(null == fullName){
             fullName = firstName + " " + lastName;
