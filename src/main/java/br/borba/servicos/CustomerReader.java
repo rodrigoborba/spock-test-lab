@@ -12,7 +12,10 @@ public class CustomerReader {
 
     public String findFullName(Long customerID){
         Customer customer = entityManager.find(Customer.class, customerID);
-        return customer.getFirstName() +" "+customer.getLastName();
+        if(null != customer) {
+            return customer.getFirstName() + " " + customer.getLastName();
+        }
+        return "";
     }
 
     public void setEntityManager(EntityManager entityManager) {
