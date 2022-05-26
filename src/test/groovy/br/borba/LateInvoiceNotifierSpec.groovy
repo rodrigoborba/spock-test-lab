@@ -5,7 +5,7 @@ import br.borba.daos.InvoiceStorage
 import br.borba.entidades.Customer
 import br.borba.servicos.LateInvoiceNotifier
 
-public class LateInvoiceNotifierSpec extends spock.lang.Specification{
+class LateInvoiceNotifierSpec extends spock.lang.Specification{
     //Class to be tested
     private LateInvoiceNotifier lateInvoiceNotifier
 
@@ -20,18 +20,18 @@ public class LateInvoiceNotifierSpec extends spock.lang.Specification{
      * Runs before each test method, like the JUnit Before
      * annotation
      */
-    public void setup(){
+    void setup(){
         invoiceStorage = Stub(InvoiceStorage.class)
         emailSender = Mock(EmailSender.class)
 
-        lateInvoiceNotifier = new LateInvoiceNotifier(emailSender,invoiceStorage);
+        lateInvoiceNotifier = new LateInvoiceNotifier(emailSender,invoiceStorage)
 
         sampleCustomer = new Customer()
         sampleCustomer.setFirstName("Susan")
         sampleCustomer.setLastName("Ivanova")
     }
 
-    public void "a late invoice should trigger an email"() {
+    void "a late invoice should trigger an email"() {
         given: "a customer with a late invoice"
         invoiceStorage.hasOutstandingInvoice(sampleCustomer) >> true
 
@@ -42,7 +42,7 @@ public class LateInvoiceNotifierSpec extends spock.lang.Specification{
         1 * emailSender.sendEmail(sampleCustomer)
     }
 
-    public void "no late invoices"() {
+    void "no late invoices"() {
         given: "a customer with good standing"
         invoiceStorage.hasOutstandingInvoice(sampleCustomer) >> false
 

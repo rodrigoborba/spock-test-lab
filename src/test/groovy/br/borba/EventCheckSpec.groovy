@@ -7,34 +7,34 @@ import br.borba.entidades.Customer
 import br.borba.entidades.Event
 import br.borba.servicos.LateInvoiceNotifier
 
-public class EventCheckSpec extends spock.lang.Specification{
+class EventCheckSpec extends spock.lang.Specification{
     //Class to be tested
-    private LateInvoiceNotifier lateInvoiceNotifier;
+    private LateInvoiceNotifier lateInvoiceNotifier
 
     //Dependencies (will be mocked)
-    private EmailSender emailSender;
-    private InvoiceStorage invoiceStorage;
-    private EventRecorder eventRecorder;
+    private EmailSender emailSender
+    private InvoiceStorage invoiceStorage
+    private EventRecorder eventRecorder
 
     //Test data
-    private Customer sampleCustomer;
+    private Customer sampleCustomer
 
     /**
      * Runs before each test method, like the JUnit Before
      * annotation
      */
-    public void setup(){
+    void setup(){
         invoiceStorage = Stub(InvoiceStorage.class)
         emailSender = Mock(EmailSender.class)
         eventRecorder = Mock(EventRecorder.class)
 
-        lateInvoiceNotifier = new LateInvoiceNotifier(emailSender,invoiceStorage,eventRecorder);
-        sampleCustomer = new Customer();
+        lateInvoiceNotifier = new LateInvoiceNotifier(emailSender,invoiceStorage,eventRecorder)
+        sampleCustomer = new Customer()
         sampleCustomer.setFirstName("Susan")
         sampleCustomer.setLastName("Ivanova")
     }
 
-    public void "email about late invoice should contain customer details"() {
+    void "email about late invoice should contain customer details"() {
         given: "a customer with a late invoice"
         invoiceStorage.hasOutstandingInvoice(sampleCustomer) >> true
 

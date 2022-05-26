@@ -7,24 +7,24 @@ import javax.persistence.EntityManager
 
 class CustomerReaderSecondSpec extends spock.lang.Specification {
     //Class to be tested
-    private CustomerReader customerReader;
+    private CustomerReader customerReader
 
     //Dependencies
-    private EntityManager entityManager;
+    private EntityManager entityManager
 
     /**
      * Runs before each test method, like the JUnit Before
      * annotation
      */
-    public void setup(){
-        customerReader = new CustomerReader();
+    void setup(){
+        customerReader = new CustomerReader()
 
-        entityManager = Stub(EntityManager.class);
-        customerReader.setEntityManager(entityManager);
+        entityManager = Stub(EntityManager.class)
+        customerReader.setEntityManager(entityManager)
     }
 
 
-    public void "customer full name is formed from first name and last name"() {
+    void "customer full name is formed from first name and last name"() {
         given: "a customer with example name values"
         Customer sampleCustomer = new Customer()
         sampleCustomer.setFirstName("Susan")
@@ -40,7 +40,7 @@ class CustomerReaderSecondSpec extends spock.lang.Specification {
         fullName == "Susan Ivanova"
     }
 
-    public void "customer is not in the database"(){
+    void "customer is not in the database"(){
         given: "the database has no record for the customer"
         entityManager.find(Customer.class,1L) >> null
 

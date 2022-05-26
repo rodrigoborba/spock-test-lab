@@ -25,4 +25,20 @@ public class CustomerDAO {
         entityManager.flush();
         logger.info("Saved customer with id {}", customer.getId());
     }
+
+    public EntityManager getEntityManager() {
+        return entityManager;
+    }
+
+    public void setEntityManager(EntityManager entityManager) {
+        this.entityManager = entityManager;
+    }
+
+    public Logger getLogger() {
+        return logger;
+    }
+
+    public void setLogger(Logger logger) {
+        this.logger = logger;
+    }
 }
