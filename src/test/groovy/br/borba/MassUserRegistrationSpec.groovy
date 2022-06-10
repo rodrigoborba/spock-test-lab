@@ -4,6 +4,7 @@ import br.borba.daos.EventRecorder
 import br.borba.daos.UserRepository
 import br.borba.entidades.Customer
 import br.borba.entidades.Event
+import br.borba.exceptions.ValidationException
 import br.borba.servicos.MassUserRegistration
 
 import java.time.LocalDate
@@ -45,7 +46,6 @@ class MassUserRegistrationSpec extends spock.lang.Specification{
         sampleCustomers.add(new Customer("Lyta", "Alexander"))
         sampleCustomers.add(new Customer("Vir", "Cotto"))
         sampleCustomers.add(new Customer("Stephen", "Frankling"))
-        //[...20 customers redacted for brevity...]
 
         when: "we register all customers at once"
         massUserRegistration.massRegister(sampleCustomers)
@@ -58,6 +58,21 @@ class MassUserRegistrationSpec extends spock.lang.Specification{
                         event.getCustomerName() == sampleCustomer.getFirstName() + " "+ sampleCustomer.getLastName()
             })
         }
+
+
+    }
+
+    void "should validate required fields"() {
+        given: "a list of sample Customers"
+        sampleCustomers.add(new Customer(null, null))
+        sampleCustomers.add(new Customer("Lyta", "Alexander"))
+
+        when: "we try to register a user with null names"
+        massUserRegistration.massRegister(sampleCustomers)
+
+        then: "we got a validation error"
+        Throwable thrown = thrown()
+        assert thrown instanceof ValidationException
 
 
     }
